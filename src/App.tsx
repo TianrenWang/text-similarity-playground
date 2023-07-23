@@ -25,10 +25,8 @@ export default function App() {
   const [startedSession, setStartedSession] = useState(false);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <Box sx={{ margin: 2, display: "flex", justifyContent: "center" }}>
-        Fill out all the fields
-      </Box>
+    <Box>
+      <Box>Fill out all the fields</Box>
     </Box>
   );
 }
