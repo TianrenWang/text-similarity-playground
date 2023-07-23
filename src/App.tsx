@@ -25,21 +25,42 @@ export default function App() {
   const [startedSession, setStartedSession] = useState(false);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{ margin: 2, display: "flex", justifyContent: "center" }}>
+        Fill out all the fields
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <TextField
+          sx={textfieldStyle}
+          value={openAISecret}
+          placeholder="OpenAI Secret"
+          onChange={(event) => setOpenAISecret(event.target.value)}
+        />
+        <TextField
+          sx={textfieldStyle}
+          value={pineconeAPIKey}
+          placeholder="Pinecone API Key"
+          onChange={(event) => setPineconeAPIKey(event.target.value)}
+        />
+        <TextField
+          sx={textfieldStyle}
+          value={pineconeEnvironment}
+          placeholder="Pinecone Environment"
+          onChange={(event) => setPineconeEnvironment(event.target.value)}
+        />
+        <TextField
+          sx={textfieldStyle}
+          value={pineconeIndex}
+          placeholder="Pinecone Index"
+          onChange={(event) => setPineconeIndex(event.target.value)}
+        />
+        <TextField
+          sx={textfieldStyle}
+          value={namespace}
+          placeholder="Namespace"
+          onChange={(event) => setNamespace(event.target.value)}
+        />
+      </Box>
+    </Box>
   );
 }
