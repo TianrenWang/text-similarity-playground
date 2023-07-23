@@ -1,20 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemText,
-  TextField,
-} from "@mui/material";
 import { Configuration, OpenAIApi } from "openai";
 import { PineconeClient } from "@pinecone-database/pinecone";
 import {
   ScoredVector,
   VectorOperationsApi,
 } from "@pinecone-database/pinecone/dist/pinecone-generated-ts-fetch";
-import SearchIcon from "@mui/icons-material/Search";
+
+import "../App.css";
 
 interface Metadata {
   text: string;
@@ -29,7 +21,7 @@ interface Props {
   pineconeNamespace: string;
 }
 
-const commonBoxStyle = {
+const commondivStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -74,31 +66,30 @@ export default function Vectors(props: Props) {
       });
   }, []);
   if (pineconeError)
-    return <Box>Pinecone failed to initialize: {pineconeError}.</Box>;
-  else if (openAIError)
-    return <Box>OpenAI failed to initialize: {openAIError}.</Box>;
-  else if (!(pineconeIndex && openAIAPI))
     return (
-      <Box sx={commonBoxStyle}>
-        <CircularProgress />
-        Loading your session....
-      </Box>
+      <div className="margin-10">
+        Pinecone failed to initialize: {pineconeError}.
+      </div>
     );
+  else if (openAIError)
+    return (
+      <div className="margin-10">
+        OpenAI failed to initialize: {openAIError}.
+      </div>
+    );
+  else if (!(pineconeIndex && openAIAPI))
+    return <div className="margin-10">Loading your session....</div>;
 
   return (
-    <Box sx={commonBoxStyle}>
-      <TextField
-        sx={{ margin: 2, width: "50%" }}
-        value={searchText}
-        placeholder="Enter the text that you want to find other similar texts for"
-        multiline
-        minRows={1}
-        maxRows={10}
-        onChange={(event) => setSearchText(event.target.value)}
-      />
-      <Button
-        variant="outlined"
-        startIcon={<SearchIcon />}
+    <div className="margin-10">
+      <div>
+        <textarea
+          value={searchText}
+          placeholder="Enter the text that you want to find other similar texts for"
+          onChange={(event) => setSearchText(event.target.value)}
+        />
+      </div>
+      <button
         onClick={async () => {
           const textEmbedding = (
             await openAIAPI.createEmbedding({
@@ -117,21 +108,17 @@ export default function Vectors(props: Props) {
         }}
       >
         Search
-      </Button>
-      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {vectors &&
-          vectors.map((vector) => {
-            if (vector.metadata)
-              return (
-                <ListItem>
-                  <ListItemText
-                    primary={(vector.metadata as Metadata).text}
-                    secondary={vector.score}
-                  />
-                </ListItem>
-              );
-          })}
-      </List>
-    </Box>
+      </button>
+      {vectors &&
+        vectors.map((vector) => {
+          if (vector.metadata)
+            return (
+              <>
+                <p>{(vector.metadata as Metadata).text}</p>
+                <p>{vector.score}</p>
+              </>
+            );
+        })}
+    </div>
   );
 }

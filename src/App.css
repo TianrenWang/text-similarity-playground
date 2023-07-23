@@ -2,22 +2,14 @@
   text-align: center;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+.margin-10,
+input {
+  margin: 10px;
 }
 
-form > input {
-  width: 200px;
-}
-
-form > button {
-  width: 208px;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+textarea {
+  width: 400px;
+  height: 100px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

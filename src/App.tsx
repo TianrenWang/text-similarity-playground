@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import { Box, Button, TextField } from "@mui/material";
 import Vectors from "./components/Vectors";
 
 const textfieldStyle = { width: 200, margin: 1 };
@@ -24,45 +23,37 @@ export default function App() {
   const [startedSession, setStartedSession] = useState(false);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <Box sx={{ margin: 2, display: "flex", justifyContent: "center" }}>
-        Fill out all the fields
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <TextField
-          sx={textfieldStyle}
+    <div>
+      <div className="margin-10">Fill out all the fields</div>
+      <div>
+        <input
           value={openAISecret}
           placeholder="OpenAI Secret"
           onChange={(event) => setOpenAISecret(event.target.value)}
         />
-        <TextField
-          sx={textfieldStyle}
+        <input
           value={pineconeAPIKey}
           placeholder="Pinecone API Key"
           onChange={(event) => setPineconeAPIKey(event.target.value)}
         />
-        <TextField
-          sx={textfieldStyle}
+        <input
           value={pineconeEnvironment}
           placeholder="Pinecone Environment"
           onChange={(event) => setPineconeEnvironment(event.target.value)}
         />
-        <TextField
-          sx={textfieldStyle}
+        <input
           value={pineconeIndex}
           placeholder="Pinecone Index"
           onChange={(event) => setPineconeIndex(event.target.value)}
         />
-        <TextField
-          sx={textfieldStyle}
+        <input
           value={namespace}
           placeholder="Namespace"
           onChange={(event) => setNamespace(event.target.value)}
         />
-      </Box>
-      <Button
-        sx={{ width: 200, margin: 1, alignSelf: "center" }}
-        variant="outlined"
+      </div>
+      <button
+        className="margin-10"
         onClick={() => {
           window.localStorage.setItem("openAISecret", openAISecret);
           window.localStorage.setItem("pineconeAPIKey", pineconeAPIKey);
@@ -85,7 +76,7 @@ export default function App() {
         }
       >
         Start Session
-      </Button>
+      </button>
       {startedSession && (
         <Vectors
           openAISecretKey={openAISecret}
@@ -95,6 +86,6 @@ export default function App() {
           pineconeEnvironment={pineconeEnvironment}
         />
       )}
-    </Box>
+    </div>
   );
 }
