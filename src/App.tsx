@@ -24,8 +24,8 @@ export default function App() {
 
   return (
     <div>
-      <div className="margin-10">Fill out all the fields</div>
-      <div>
+      <div className="margin-10">Text Similarity Playground</div>
+      {/* <div>
         <input
           value={openAISecret}
           placeholder="OpenAI Secret"
@@ -85,7 +85,8 @@ export default function App() {
           pineconeNamespace={namespace}
           pineconeEnvironment={pineconeEnvironment}
         />
-      )}
+      )} */}
+      <Vectors />
     </div>
   );
 }

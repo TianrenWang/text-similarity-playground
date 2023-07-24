@@ -11,6 +11,8 @@
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "openai": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,10 +21,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "node server.js",
+    "react-start": "react-scripts start",
+    "build": "BUILD_PATH='./dist' react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "BUILD_PATH='./dist' react-scripts build"
   },
   "eslintConfig": {
     "extends": [
