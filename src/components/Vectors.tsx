@@ -26,10 +26,45 @@ const commondivStyle = {
 
 export default function Vectors() {
   const [searchText, setSearchText] = useState("");
+  const [indexText, setIndexText] = useState("");
+  const [namespace, setNamespace] = useState("");
   const [vectors, setVectors] = useState<ScoredVector[]>();
 
   return (
     <div className="margin-10">
+      <div className="margin-bottom">
+        <input
+          value={namespace}
+          placeholder="namespace"
+          onChange={(event) => setNamespace(event.target.value)}
+        />
+      </div>
+      <div>
+        <textarea
+          value={indexText}
+          placeholder="Enter the text that you want to index"
+          onChange={(event) => setIndexText(event.target.value)}
+        />
+      </div>
+      <button
+        className="margin-bottom"
+        onClick={async () => {
+          const requestURL = `${process.env.REACT_APP_DOMAIN}/api/text?namespace=${namespace}`;
+          fetch(requestURL, {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: indexText }),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }}
+      >
+        Index
+      </button>
       <div>
         <textarea
           value={searchText}
@@ -41,7 +76,7 @@ export default function Vectors() {
         onClick={async () => {
           const requestURL = `${
             process.env.REACT_APP_DOMAIN
-          }/api/similar_texts?text="${searchText}"&topk=${10}`;
+          }/api/similar_texts?text="${searchText}"&topk=${10}&namespace=${namespace}`;
           fetch(requestURL)
             .then((response) => {
               return response.json();
